@@ -1,0 +1,47 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<link th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css}" rel="stylesheet">
+<link th:href="@{../css/join.css}" rel="stylesheet" />
+<script src="../js/joinForm.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.20.0/dist/jquery.validate.min.js"></script>
+<meta charset="UTF-8">
+<title>Hello</title>
+</head>
+<body>
+<div class="joinLayout">
+    <div class="joinInnerLayout">
+        <h2>회원가입</h2>
+        <form id="boardForm" method="post" th:object="${item}" onsubmit="return join()">
+            <input type="hidden" name="socialKey" value=""/>
+            <input type="hidden" name="loginType" value="1"/>
+            <input type="hidden" name="useYn" value="Y"/>
+            <input type="hidden" name="dupFlag" value="false"/>
+            <input type="hidden" name="emailOrg" value=""/>
+            <div class="mb-3 row-flex" >
+                <div class="" style="width:100%">
+                <input type="text" class="form-control" th:onChange="isEmpty()" th:field="*{email}" placeholder="example@example.com" required>
+                </div>
+                <input type="button" class="emailBtn btn btn-outline-primary"th:onClick="emailDuplication()" value="중복확인"/>
+            </div>
+            <div class="mb-3">
+                <input type="text" class="form-control" rows="3" th:onChange="isEmpty()" th:field="*{name}" placeholder="이름" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" rows="3" th:onChange="isEmpty()" th:field="*{pwd}" placeholder="비밀번호" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" class="form-control" rows="3" name="pwd_2" th:onChange="isEmpty()" placeholder="비밀번호 확인"required>
+            </div>
+            <div class="mb-3">
+            <input class="form-check-input" type="checkbox" id="terms" th:onChange="isEmpty()">
+            <label class="form-check-label" for="terms">
+                <span>서비스 이용약관에 동의합니다.(필수)<span>  <span><a href="#">내용 보기</a></span>
+            </label>
+            </div>
+            <button class="joinBtn btn btn-outline-primary" disabled>가입하기</button>
+        </form>
+
+        </div>
+</div>
+</body>
+</html>

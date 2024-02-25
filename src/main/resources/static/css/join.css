@@ -1,0 +1,25 @@
+/*회원가입 전체 레이아웃*/
+.joinLayout{
+    background-size: 100%;
+}
+.joinInnerLayout{
+    background-size: 80%;
+    width: 30%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.row-flex{
+    display:flex;
+}
+
+.star:before{
+    content:"*"
+
+}
+
+.error {
+    display: block;
+    color: #f00;
+    border-color: #f00
+}

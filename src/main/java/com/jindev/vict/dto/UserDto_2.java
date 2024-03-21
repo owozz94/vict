@@ -1,15 +1,13 @@
-package com.jindev.vict.dao;
+package com.jindev.vict.dto;
 
 import com.jindev.vict.member.LoginForm;
-import com.jindev.vict.member.MemberDto;
 import com.jindev.vict.member.MemberSaveDto;
 import org.apache.ibatis.annotations.Mapper;
 
-import java.util.List;
 import java.util.Map;
 
 @Mapper
-public interface UserDao {
+public interface UserDto_2 {
 
     int insert(MemberSaveDto dto);
 
@@ -18,4 +16,6 @@ public interface UserDao {
     int getEmailExist(String email);
 
     LoginForm getLoginInfo(Map loginInfo);
+
+    String getUseYn(String email);
 }

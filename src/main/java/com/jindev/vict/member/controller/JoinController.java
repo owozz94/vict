@@ -30,10 +30,10 @@ public class JoinController {
     }
     //폼방식으로 전송
     @PostMapping("/join")
-    public String join(@Validated @ModelAttribute("item") MemberSaveDto dto) throws NoSuchAlgorithmException {
+    public String join(@Validated @ModelAttribute("form") MemberSaveDto dto) throws NoSuchAlgorithmException {
 
         service.insertMember(dto);
-        return "/login";
+        return "redirect:/login";
     }
 
     @GetMapping("/test")

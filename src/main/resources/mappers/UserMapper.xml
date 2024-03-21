@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jindev.vict.dao.UserDao">
+<mapper namespace="com.jindev.vict.dto.UserDto_2">
     <select id="testSelect">
         SELECT * FROM dual
     </select>
 
     <insert id="insert" parameterType="com.jindev.vict.member.MemberDto">
         INSERT INTO
-        TB_USER (USER_UNIQUE_NUM, EMAIL, PWD, NAME, REG_DATE, USE_YN, LOGIN_TYPE, SOCIAL_KEY)
+        TB_USER (USER_UNIQUE_NUM, EMAIL, PWD, NAME, REG_DATE, USE_YN, LOGIN_TYPE, SOCIAL_KEY, SALT)
         values(
         USER_UNIQUE_NUM.NEXTVAL,
         #{email},
@@ -17,30 +17,35 @@
         sysdate,
         #{useYn},
         #{loginType},
-        #{socialKey}
+        #{socialKey},
+        #{salt}
         )
     </insert>
     <select id="getEmailExist" resultType="int" parameterType="String">
-        SELECT (
-            CASE WHEN EXISTS (
-                SELECT 1
-                FROM TB_USER
-                WHERE USE_YN = 'Y'
-                AND EMAIL= #{email}
-            )
-            THEN '1'
-            ELSE '0'
-            END
-        ) AS EXIST
-        FROM TB_USER TU
-        WHERE ROWNUM = 1
+        SELECT NVL((SELECT 1
+        FROM TB_USER
+        WHERE USE_YN = 'Y'
+        AND EMAIL=  #{email}
+        AND ROWNUM = 1
+        ), 0) AS EXIST
+        FROM dual
     </select>
 
     <select id="getLoginInfo" resultType="com.jindev.vict.member.LoginForm" parameterType="Map">
-
         SELECT
         TU.EMAIL,
         TU.PWD,
+        TU.SALT
+        FROM TB_USER TU
+        WHERE
+        TU.EMAIL=#{email}
+        AND TU.USE_YN = 'Y'
+        AND TU.REG_DATE IS NOT NULL
+        AND TU.LEAVE_DATE IS NULL
+    </select>
+
+    <select id="getUseYn" resultType="String" parameterType="String">
+        SELECT
         TU.USE_YN
         FROM TB_USER TU
         WHERE

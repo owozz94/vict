@@ -2,17 +2,27 @@
 function join(){
      let emailOrg = $('input[name=emailOrg]').val();
      let email = $('#email').val();
+     let dupFlag = $('input[name=dupFlag]').val();
          //이메일 중복여부 확인 true일 경우에만 진행
-  if(emailOrg == email && emailOrg != ''){
-        return;
-  }else{
-     alert("이메일 중복확인을 해주세요.");
+//  if(emailOrg == email && emailOrg != ''){
+//        return;
+//  }else
+    if(dupFlag == "false"){
+       alert("이메일 중복확인을 진행해주세요.");
+       return false;
+   }else if(emailOrg != email || emailOrg == ''){
+        alert("이메일 중복확인을 해주세요.");
         return false;
+      }
+      else{
+      return;
       }
 }
 //이메일 중복확인
 function emailDuplication(){
     let email = $('#email').val();
+
+
     if(email == ''){
         alert("이메일을 입력해주세요.");
         return false;
@@ -21,6 +31,7 @@ function emailDuplication(){
         alert("올바른 이메일 형식으로 입력하세요.");
         return false;
     }
+
     $.ajax({
         type:"get",
         url:"/emailDuplication/"+email,
@@ -28,11 +39,13 @@ function emailDuplication(){
         let message;
         if(result == 1){
            message = "이미 가입된 이메일입니다.";
+          $('input[name=dupFlag]').attr('value', false);
         }else{
            message = "사용 가능한 이메일입니다.";
+           $('input[name=dupFlag]').attr('value', true);
         }
             alert(message);
-            $('input[name=dupFlag]').attr('value', true);
+
             $('input[name=emailOrg]').attr('value', email);
         },
     });

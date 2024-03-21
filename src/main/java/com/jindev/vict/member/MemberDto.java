@@ -20,4 +20,5 @@ public class MemberDto {
     String useYn; /** 사용 여부 */
     int loginType; /** 로그인 타입 1:일반가입 2:네이버가입 */
     String socialKey; /** 소셜 로그인 키 */
+    String salt; /** ID SALT 값*/
 }

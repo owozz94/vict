@@ -13,11 +13,10 @@ public class LoginForm {
     @NotNull
     String email; /** 이메일 */
 
-
     @NotBlank(message = "비밀번호를 입력해주세요.")
     @NotNull
     String pwd; /** 비밀번호 */
 
-    @NotNull
     String useYn; /** 사용 여부 */
+    String salt;
 }
